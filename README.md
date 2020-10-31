@@ -79,10 +79,10 @@ inject:
 
 ```js
  data: {
-			user:'Zfour', //用户名称
-		    fixed:'fixed',
-			px:'px',
-			x:'',
+	    user:'Zfour', //用户名称
+	    fixed:'fixed',
+	    px:'px',
+	    x:'',
             y:'',
             span1:'',
             span2:'',
