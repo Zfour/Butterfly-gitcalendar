@@ -4,6 +4,8 @@
 
 <p>因为用之前的gitcalendar服务器失效了，于是找api自己手写了一个。</p>
 <p>项目用到了<a  class="btn-beautify button--animated outline black" style="cursor:pointer"  href="https://github.com/rschristian/github-contribution-calendar-api">GitHub Contribution Calendar API</a></p>
+<a href="https://zfour.github.io/Butterfly-gitcalendar/index">SITE DEMO</a>
+<a href="https://zfe.space">BLOG DEMO</a>
 <p>通过vuejs进行编码。</p>
 <p>资源包地址：https://github.com/Zfour/Butterfly-gitcalendar</p>
 <a  class="btn-beautify button--animated outline black" style="cursor:pointer"  href="https://github.com/Zfour/Butterfly-gitcalendar">资源包下载</a>
