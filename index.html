@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Zfour/zfe-2.0@1.16/css/calendar.css"/>
+</head>
+<body>
+<div class="calendar" id="calendar" style="width:40%;height:100%">
+    <div :style="{top:y+px,left:x+px,position: fixed,zIndex:9999}">
+        <div class="angle-wrapper"><span>{{span1}}  </span><span>{{span2}} 次上传</span></div>
+    </div>
+    <div class="position-relative">
+        <div class="border py-2 graph-before-activity-overview">
+            <div class="js-calendar-graph mx-md-2 mx-3 d-flex flex-column flex-items-end flex-xl-items-center overflow-hidden pt-1 is-graph-loading graph-canvas calendar-graph height-full text-center">
+                <svg class="js-calendar-graph-svg" width="100%" viewBox="0 0 760 128">
+                    <text class="month" :x="32 + monthindex*64" y="20" v-for="(month,monthindex) in monthRearr">
+                        {{month}}
+                    </text>
+                    <text class="wday" text-anchor="start" dx="0" dy="40"> 日</text>
+                    <text class="wday" text-anchor="start" dx="0" dy="65"> 二</text>
+                    <text class="wday" text-anchor="start" dx="0" dy="90"> 四</text>
+                    <text class="wday" text-anchor="start" dx="0" dy="115">六</text>
+                    <g v-for="(weekitem,weekIndex) in data" :transform="'translate('+ (16 + weekIndex*14) + ',' + '0)'">
+                        <rect @mouseover="selectStyle(dayitem,$event)" @mouseleave="outStyle()"
+                              v-for="(dayitem,dayIndex) in weekitem"
+                              :style="{fill:thiscolor(dayitem.count),shapeRendering:crispedges}"
+                              :data-score="dayitem.count" :data-date="dayitem.date" x="0" :y=" 30 + dayIndex*13 "
+                              width="11" height="11"></rect>
+                    </g>
+                </svg>
+            </div>
+            <div class="contrib-footer clearfix mt-1 mx-3 px-3 pb-1">
+                <div class="float-left text-gray">数据来源 <a :href="'https://github.com/'+ user " target="blank">@{{user}}</a>
+                </div>
+                <div class="contrib-legend text-gray">
+                    Less
+                    <ul class="legend">
+                        <li style="background-color: rgb(235, 237, 240);"></li>
+                        <li style="background-color: rgb(229, 145, 198);"></li>
+                        <li style="background-color: rgb(229, 91, 178);"></li>
+                        <li style="background-color: rgb(179, 18, 119);"></li>
+                        <li style="background-color: rgb(96, 3, 62);"></li>
+                    </ul>
+                    More
+                </div>
+            </div>
+        </div>
+    </div>
+    <div style="width:100%;flex-direction: row;display: flex;margin-top: 10px">
+        <div class="contrib-column contrib-column-first table-column"><span class="text-muted">过去一年提交</span><span
+                class="contrib-number">{{total}}</span><span
+                class="text-muted">{{oneyearago}}&nbsp;-&nbsp;{{thisday}}</span></div>
+        <div class="contrib-column table-column"><span class="text-muted">最近一月提交</span><span
+                class="contrib-number">{{monthcoresum}}</span><span
+                class="text-muted">{{amonthago}}&nbsp;-&nbsp;{{thisday}}</span></div>
+        <div class="contrib-column table-column"><span class="text-muted">最近一周提交</span><span
+                class="contrib-number">{{weekcoresum}}</span><span
+                class="text-muted">{{aweekago}}&nbsp;-&nbsp;{{thisday}}</span></div>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.11"></script>
+<script >
+
+    const calendar = new Vue({
+        el: '#calendar',
+        data: {
+            user:' ',     //用户名称
+            crispedges:'crispedges',//crispedges字符串化
+            fixed:'fixed',   //fixed字符串化
+            px:'px',   //px字符串化
+            x:'',      //鼠标悬浮坐标x
+            y:'',      //鼠标悬浮坐标y
+            span1:'',   //数据标签时间
+            span2:'',   //数据标签上传数
+            month:['一月','二月','三月','四月','五月','六月','七月','八月','九月','十月','十一月','十二月'],//原始月份数组
+            monthRearr:[],//重排月份数组
+
+            thisday:'',//今天
+            oneyearago:'',//一年前
+            amonthago:'',//一个月前
+            aweekago:'',//一周前
+            weekcoresum:0,//周数据汇总
+            monthcoresum:0,//月数据汇总
+            total:0,//年数据汇总
+
+            data: [],//返回的contributions数据
+            firstweek:[], //第一周
+            lastweek:[], //最后一周
+            aWeekBefore:[],//上一周
+            monthfirstweekindex:0,//月数据的第一周索引值
+
+            color: [  //日历颜色序列
+                '#ebedf0',
+                '#fdcdec',
+                '#fc9bd9',
+                '#fa6ac5',
+                '#f838b2',
+                '#f5089f',
+                '#c4067e',
+                '#92055e',
+                '#540336',
+                '#48022f',
+                '#30021f',]
+        },
+        methods:{
+            selectStyle(data,event){
+                $('.angle-wrapper').show();
+                this.span1 = data.date;
+                this.span2 = data.count;
+                this.x = event.clientX -100;
+                this.y = event.clientY -60;
+                // console.log(event);
+            },
+            outStyle(){
+                $('.angle-wrapper').hide();
+                // console.log();
+            },
+            thiscolor(x){
+                if(x===0){
+                    let i = parseInt(x/2);
+                    return this.color[0]
+                }
+                else if(x<2){
+                    return this.color[1]
+                }
+                else if(x<20){
+                    let i = parseInt(x/2) ;
+                    return this.color[i]
+                }
+                else{
+                    return this.color[9]
+                }
+            },
+
+        }
+    })
+       
+    let weburl = location.search;
+    if(weburl.substr(1) ===''){
+        calendar.user = 'Zfour';
+    }else{
+        calendar.user = weburl.substr(1);
+    }
+
+    let githubapiurl = "https://githubapi.ryanchristian.dev/user/" + calendar.user
+
+    $(function () {
+        $.ajax({
+            //请求方式
+            type: "GET",
+            //文件位置
+            url: githubapiurl,
+            //返回数据格式为json,也可以是其他格式如
+            dataType: "json",
+            beforeSend: function (XMLHttpRequest) {
+                //alert('远程调用开始...');
+
+
+            },
+            //请求成功后要执行的函数，拼接html
+            success: function (data) {
+                // console.log(data);
+                calendar.data = data.contributions;
+                calendar.total = data.total;
+                calendar.firstweek= data.contributions[0]; //日历显示的第一周
+                calendar.lastweek= data.contributions[52]; //日历显示的最后一周
+                calendar.aWeekBefore= data.contributions[51];//上一周
+                let thisdayindex = calendar.lastweek.length - 1;
+                calendar.thisday = calendar.lastweek[thisdayindex].date;
+                calendar.oneyearago = calendar.firstweek[0].date;
+                amonthagoindex =  6 - (30-calendar.lastweek.length)%7;
+                calendar.monthfirstweekindex = 52 - Math.ceil((30- calendar.lastweek.length*1)/7);
+                amonthagoweek =  calendar.data[calendar.monthfirstweekindex];
+                calendar.amonthago = amonthagoweek[amonthagoindex].date;
+                monthsum();
+                reloadmonth(calendar.thisday);
+                function monthsum(){
+                    if(thisdayindex === 0){
+                        thisweekcore(52);
+                        thisweekcore(51);
+                        thisweekcore(50);
+                        thisweekcore(49);
+                        thisweekcore(48);
+                        let first1date = calendar.data[47]
+                        calendar.monthcoresum += firstdate[6].count
+                        console.log('月'+ firstdate[6].date);
+                    }
+                    else {
+                        thisweekcore(52);
+                        thisweekcore(51);
+                        thisweekcore(50);
+                        thisweekcore(49);
+                        first2date = calendar.data[48]
+                        thisweek2core();
+                    }
+
+                };
+                function thisweek2core(){for( let i=thisdayindex-2;i<first2date.length;i++){
+
+                    calendar.monthcoresum += first2date[i].count*1;
+                    // console.log('月'+ first2date[i].date);
+
+                }};
+                function thisweekcore(index){for( let item of calendar.data[index]){
+
+                    calendar.monthcoresum += item.count*1;
+                    // console.log('月'+ item.date);
+
+                }};
+                function addlastweek(){for( let item of calendar.lastweek){
+
+                    calendar.weekcoresum += item.count*1;
+                    // console.log('日'+ item.date);
+
+                }};
+                function reloadmonth(thisday){
+                    let  str = thisday.substring(5, 7);
+                    let arr = calendar.month.splice(str,12-str*1);
+                    // console.log(arr);
+                    calendar.monthRearr = arr.concat(calendar.month)
+                };
+                function addaWeekBefore(){for( let i=thisdayindex;i<calendar.aWeekBefore.length;i++){
+                    calendar.weekcoresum += calendar.aWeekBefore[i].count*1;
+                    // console.log('日'+ calendar.aWeekBefore[i].date);
+
+                }};
+                if(thisdayindex === 6 ){
+                    calendar.aweekago  = calendar.lastweek[0].date;
+                    addlastweek();
+                }else{
+                    lastweek = data.contributions[51];
+                    calendar.aweekago  = lastweek[thisdayindex].date;
+                    addlastweek();
+                    addaWeekBefore();
+                };
+
+            }
+        });
+    });
+</script>
+</body>
+</html>

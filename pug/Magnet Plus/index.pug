@@ -1,0 +1,12 @@
+extends includes/layout.pug
+
+block content
+  include ./includes/mixins/post-ui.pug
+  #recent-posts.recent-posts
+    .recent-post-item(style='width:100%')
+       include gitcalendar.pug
+    .recent-post-item.photo-tag(style='width:100%;height:auto;float:left;margin-top: 20px;padding:5px;flex-wrap:wrap;justify-content : center;flex-direction: row; ')
+       include catalogMagnet.pug
+    .recent-post-item(style='height:0px;clear:both;margin-top: 0px;')
+    +postUI
+    include includes/pagination.pug
