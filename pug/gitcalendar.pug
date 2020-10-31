@@ -17,7 +17,7 @@
       .contrib-footer.clearfix.mt-1.mx-3.px-3.pb-1
         .float-left.text-gray
           | 数据来源 
-          a(href='https://github.com/Zfour', target='blank') @Zfour
+          a(:href="'https://github.com/'+ user ", target='blank') @{{user}}
         .contrib-legend.text-gray(title='A summary of pull requests, issues opened, and commits to the default and gh-pages branches.')
           | Less
 
