@@ -1,3 +1,7 @@
+## 更新日志 ##
+
+-2020/11/01-  修复了一周前时间不显示的bug，请更换js文件
+
 ## 序言：效果展示 ##
 
 ![example](https://zfe.space/images/gitcalendar2.0.png)
