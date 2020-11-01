@@ -161,7 +161,7 @@ const calendar = new Vue({
                         thisweekcore(50);
                         thisweekcore(49);
                         thisweekcore(48);
-                        let first1date = calendar.data[47]
+                        let firstdate = calendar.data[47]
                         calendar.thisweekdatacore += firstdate[6].count
                         console.log('月'+ firstdate[6].date);
                     }
