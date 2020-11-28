@@ -234,3 +234,4 @@ $(function () {
     }
   })
 });
+if(document.getElementById("calendarcanvasbox").offsetWidth<500){calendar.simplemode=false}
