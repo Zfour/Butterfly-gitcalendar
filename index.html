@@ -13,7 +13,8 @@
     <div class="position-relative">
         <div class="border py-2 graph-before-activity-overview">
             <div class="js-calendar-graph mx-md-2 mx-3 d-flex flex-column flex-items-end flex-xl-items-center overflow-hidden pt-1 is-graph-loading graph-canvas calendar-graph height-full text-center">
-                <svg class="js-calendar-graph-svg" width="100%" viewBox="0 0 760 128">
+                <div v-if="simplemode"><canvas id="gitcanvas"></canvas></div>
+                <svg v-if="!simplemode" class="js-calendar-graph-svg" width="100%" viewBox="0 0 770 128">
                     <text class="month" :x="32 + monthindex*64" y="20" v-for="(month,monthindex) in monthRearr">
                         {{month}}
                     </text>
@@ -66,6 +67,7 @@
     const calendar = new Vue({
         el: '#calendar',
         data: {
+            simplemode:true,
             user:' ',     //用户名称
             crispedges:'crispedges',//crispedges字符串化
             fixed:'fixed',   //fixed字符串化
@@ -176,6 +178,46 @@
                 calendar.amonthago = amonthagoweek[amonthagoindex].date;
                 monthsum();
                 reloadmonth(calendar.thisday);
+                //
+                //
+                //
+                // 获取设备像素比
+                let c=document.getElementById("gitcanvas");
+                let ctx=c.getContext("2d");
+                    c.width=document.getElementById("calendar").offsetWidth;
+                    let linemaxwitdh = 0.96*c.width/calendar.data.length;
+                    c.height=8.7*linemaxwitdh;
+                    let lineminwitdh = 0.8*linemaxwitdh;
+                let setposition = {x:0.02*c.width,y:0.025*c.width};
+                for(let week in calendar.data){
+                    //console.log(calendar.data[week])
+                    weekdata = calendar.data[week];
+                    for (let day in weekdata){
+                        //console.log(weekdata[day])
+                        ctx.fillStyle = calendar.thiscolor(weekdata[day].count);
+                        //console.log(ctx.fillStyle)
+                        ctx.fillRect(setposition.x,setposition.y,lineminwitdh,lineminwitdh);
+                        setposition.y = setposition.y + linemaxwitdh;
+                    };
+                    setposition.y =0.025*c.width;
+                    setposition.x = setposition.x + linemaxwitdh;
+                };
+
+                ctx.font = "600  Arial";
+                ctx.fillStyle = '#aaa';
+                ctx.fillText("日",0,1.9*linemaxwitdh);
+                ctx.fillText("二",0,3.9*linemaxwitdh);
+                ctx.fillText("四",0,5.9*linemaxwitdh);
+                ctx.fillText("六",0,7.9*linemaxwitdh);
+                let monthindexlist = c.width/24;
+                for(let index in calendar.monthRearr){
+                    ctx.fillText(calendar.monthRearr[index],monthindexlist,0.7*linemaxwitdh);
+                    monthindexlist = monthindexlist + c.width/12;
+                };
+
+                //
+                //
+                //
                 function monthsum(){
                     if(thisdayindex === 0){
                         thisweekcore(52);
@@ -185,7 +227,7 @@
                         thisweekcore(48);
                         let first1date = calendar.data[47]
                         calendar.monthcoresum += firstdate[6].count
-                        console.log('月'+ firstdate[6].date);
+                       // console.log('月'+ firstdate[6].date);
                     }
                     else {
                         thisweekcore(52);
@@ -239,6 +281,9 @@
             }
         });
     });
+</script>
+<script>
+
 </script>
 </body>
 </html>

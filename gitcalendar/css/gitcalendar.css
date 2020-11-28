@@ -48,7 +48,7 @@
 }
 
 .calendar-graph {
-    padding: 5px 0 0;
+    padding: 15px 0 0;
     text-align: center;
 }
 
@@ -160,7 +160,7 @@ h2.f4.text-normal.mb-3 {
     border: 5px solid transparent;
     border-top-color: rgba(0,0,0,.85)
 }
-.position-relative {width:100%;margin-left:20px;margin-right:20px;}
+.position-relative {width:100%;padding-left:20px;padding-right:20px;}
 @media screen and (max-width: 650px){.contrib-column{display:none}}
 
         .angle-wrapper {
