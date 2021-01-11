@@ -1,4 +1,5 @@
 ## 更新日志 ##
+<p>-2021/01/12-  去jquery实现，改变了容器id为gitcalendar，运用fetch实现了网络请求。</p>
 <p>-2020/11/28-  新增simplemode配置，打开时使用canvas绘制gitcalendar，关闭时使用svg绘制gitcalendar。</p>
 <p>-2020/11/02-  修复月份算法的逻辑错误问题以及月份出现不加载的问题。</p>
 <p>-2020/11/01-  将部分全局声明变量转换为了vue实例变量，关闭了console.log。</p>
