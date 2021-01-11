@@ -1,4 +1,4 @@
-.calendar {
+.gitcalendar {
     font-family: SourceHanSans-Medium;
     border: 1px solid #DDDDDD;
     border-radius: 3px;
@@ -14,8 +14,8 @@
 	flex-wrap:wrap;
 }
 
-.calendar-graph text.wday,
-.calendar-graph text.month {
+.gitcalendar-graph text.wday,
+.gitcalendar-graph text.month {
     font-size: 10px;
     fill: #aaa;
 }
@@ -47,7 +47,7 @@
     color: #767676;
 }
 
-.calendar-graph {
+.gitcalendar-graph {
     padding: 15px 0 0;
     text-align: center;
 }
@@ -78,7 +78,7 @@
     display: block;
 }
 
-.calendar img.spinner {
+.gitcalendar img.spinner {
     width: 70px;
     margin-top: 50px;
     min-height: 70px;
