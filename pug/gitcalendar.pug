@@ -1,14 +1,14 @@
-#calendar.calendar
+#gitcalendar.gitcalendar
   #gitmessage(:style='{top:y+px,left:x+px,position: fixed,zIndex:9999}')
     .angle-wrapper
       span {{span1}} &nbsp;
       span {{span2}} 次上传
   .position-relative
     .border.py-2.graph-before-activity-overview
-      .js-calendar-graph.mx-md-2.mx-3.d-flex.flex-column.flex-items-end.flex-xl-items-center.overflow-hidden.pt-1.is-graph-loading.graph-canvas.calendar-graph.height-full.text-center(data-graph-url='/users/Zfour/contributions?to=2020-10-29', data-url='/Zfour', data-from='2019-10-27 00:00:00 UTC', data-to='2020-10-29 23:59:59 UTC', data-org)
-        #calendarcanvasbox(v-if='simplemode')
+      .js-gitcalendar-graph.mx-md-2.mx-3.d-flex.flex-column.flex-items-end.flex-xl-items-center.overflow-hidden.pt-1.is-graph-loading.graph-canvas.gitcalendar-graph.height-full.text-center(data-graph-url='/users/Zfour/contributions?to=2020-10-29', data-url='/Zfour', data-from='2019-10-27 00:00:00 UTC', data-to='2020-10-29 23:59:59 UTC', data-org)
+        #gitcalendarcanvasbox(v-if='simplemode')
           canvas#gitcanvas(style='animation: none;')
-        svg.js-calendar-graph-svg(width='100%', viewBox='0 0 770 128', v-if='!simplemode')
+        svg.js-gitcalendar-graph-svg(width='100%', viewBox='0 0 770 128', v-if='!simplemode')
           text.month(:x='32 + monthindex*64', y='20', v-for='(month,monthindex) in monthchange') {{month}}
           text.wday(text-anchor='start', dx='0', dy='40')  日
           text.wday(text-anchor='start', dx='0', dy='65')  二
