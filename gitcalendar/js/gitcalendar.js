@@ -75,7 +75,7 @@ let githubapiurl = "https://python-github-calendar-api.vercel.app/api?" + gitcal
 //旧的api策略
 
 //canvas绘图
-function responsiveChart() {
+function responsiveChart() {if(gitcalendar.simplemode){
     let c = document.getElementById("gitcanvas");
     let cmessage = document.getElementById("gitmessage");
     let ctx = c.getContext("2d");
@@ -150,7 +150,7 @@ function responsiveChart() {
             //}
         }
     }
-}
+}}
 
 //数据统计算法
 function addlastmonth() {
@@ -237,5 +237,5 @@ window.onresize = function(){
 
 //解决滚动滑轮时出现的标签显示
 window.onscroll = function () {
-    document.querySelector('.angle-wrapper').style.display = 'none'
+   if(document.querySelector('.angle-wrapper')){ document.querySelector('.angle-wrapper').style.display = 'none'}
 };
