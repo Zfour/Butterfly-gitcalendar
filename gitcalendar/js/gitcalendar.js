@@ -70,7 +70,7 @@ const gitcalendar = new Vue({
     }
 });
 
-let githubapiurl = "https://python-github-calendar-api-1i3l6z858.vercel.app/api?" + gitcalendar.user;
+let githubapiurl = "https://python-github-calendar-api.vercel.app/api?" + gitcalendar.user;
 //let githubapiurl = "https://githubapi.ryanchristian.dev/user/" + gitcalendar.user;  
 //旧的api策略
 
