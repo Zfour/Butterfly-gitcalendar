@@ -3,7 +3,7 @@
 <a href="https://github.com/Zfour/python_github_calendar_api">api地址，可以自己部署到vercel然后修改请求链接。</a>
 
 ## 更新日志 ##
-<p>-2021/01/12-  因为api出现了稳定性波动,所以我用Python自己写了个api。</p>
+<p>-2021/01/18-  因为api出现了稳定性波动,所以我用Python自己写了个api。</p>
 <p>		 因为这个api是实时获取的github的数据会稍许有点卡。但自己写的就不怕他挂就是了。</p>
 <p>		 目前默认使用的我自己写的api，如果想切换为以前的api可以打开注释。然后注释掉默认的api即可。</p>
 <p>-2021/01/12-  去jquery实现，改变了容器id为gitcalendar，运用fetch实现了网络请求。</p>
