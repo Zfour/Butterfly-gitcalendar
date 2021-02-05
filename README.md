@@ -1,3 +1,9 @@
+近期bug的解决方法↓
+```
+//let githubapiurl = "https://githubapi.ryanchristian.dev/user/" + calendar.user
+let githubapiurl = "https://python-github-calendar-api.zfour.vercel.app/api/?" + calendar.user
+```
+
 ## python_github_calendar_api ##
 
 <a href="https://github.com/Zfour/python_github_calendar_api">api地址，可以自己部署到vercel然后修改请求链接。</a>
