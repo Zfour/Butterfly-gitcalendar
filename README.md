@@ -27,7 +27,7 @@ let githubapiurl = "https://python-github-calendar-api.zfour.vercel.app/api/?" +
 ![example](https://zfe.space/images/gitcalendar2.0.png)
 
 <p>因为用之前的gitcalendar服务器失效了，于是找api自己手写了一个。</p>
-<p>项目用到了<a  class="btn-beautify button--animated outline black" style="cursor:pointer"  href="https://github.com/rschristian/github-contribution-calendar-api">GitHub Contribution Calendar API</a></p>
+<p>项目用到了<a  class="btn-beautify button--animated outline black" style="cursor:pointer"  href="https://github.com/Zfour/python_github_calendar_api">python_github_calendar_api</a></p>
 <a href="https://zfour.github.io/Butterfly-gitcalendar/index">SITE DEMO</a>
 <a href="https://zfe.space">BLOG DEMO</a>
 <p>通过vuejs进行编码。</p>
