@@ -1,7 +1,7 @@
 近期bug的解决方法↓
 ```
-//let githubapiurl = "https://githubapi.ryanchristian.dev/user/" + calendar.user
-let githubapiurl = "https://python-github-calendar-api.zfour.vercel.app/api/?" + calendar.user
+//let githubapiurl = "https://githubapi.ryanchristian.dev/user/" + gitcalendar.user
+let githubapiurl = "https://python-github-calendar-api.zfour.vercel.app/api/?" + gitcalendar.user
 ```
 
 ## python_github_calendar_api ##
