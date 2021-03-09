@@ -1,3 +1,8 @@
+## 本项目已停止维护 ##
+新项目：https://github.com/Zfour/hexo-github-calendar
+<br>
+<hr>
+
 近期bug的解决方法↓
 ```
 //let githubapiurl = "https://githubapi.ryanchristian.dev/user/" + gitcalendar.user
